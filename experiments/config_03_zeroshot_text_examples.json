@@ -1,0 +1,39 @@
+{
+  "experiment_name": "03_zeroshot_text_examples",
+  "description": "Zero-shot with text examples (no images)",
+  
+  "prompt_file": "data/prompts/03_zeroshot_with_text_examples.txt",
+  "ground_truth_file": "data/datasets/ground_truth_100.csv",
+  "images_dir": "data/download/test_100_images",
+  "output_dir": "data/outputs",
+  
+  "models": [
+    {
+      "name": "gpt-5.2",
+      "provider": "openai",
+      "model_id": "gpt-5.2-2025-12-11",
+      "batch_size": 10,
+      "enabled": true
+    },
+    {
+      "name": "gemini-3-flash",
+      "provider": "google",
+      "model_id": "gemini-3-flash-preview",
+      "batch_size": 5,
+      "enabled": true
+    },
+    {
+      "name": "qwen3-vl-32b",
+      "provider": "together",
+      "model_id": "Qwen/Qwen3-VL-32B-Instruct",
+      "batch_size": 10,
+      "enabled": true
+    }
+  ],
+  
+  "settings": {
+    "max_retries": 3,
+    "retry_delay_sec": 5,
+    "save_raw_responses": true
+  }
+}

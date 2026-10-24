@@ -1,0 +1,62 @@
+# Citywide scoring campaign configuration.
+# Money-related knobs: budget.hard_ceiling_usd and prices_per_million.
+
+run_id: pilot_200
+manifest: manifests/pilot_200.csv
+
+# Single source of truth for the P6 prompt and the 5 calibration images.
+prompt_module_dir: ../nogwh_evaluation
+
+models:
+  gpt52:
+    provider: openai
+    model: gpt-5.2-2025-12-11
+    reasoning_effort: low
+    max_output_tokens: 8000
+  gem3fp:
+    provider: gemini
+    model: gemini-3-flash-preview
+    temperature: 0.0
+    max_output_tokens: 8000
+  gpt41:
+    provider: openai
+    model: gpt-4.1
+    temperature: 0.0
+    max_output_tokens: 8000
+
+openai:
+  # Prompt caching: the identical prefix (rubric + 5 examples) is cached server-side.
+  # prompt_cache_key routes all requests to the same cache; 24h retention keeps
+  # the prefix warm across the whole run instead of the default 5-10 minutes.
+  prompt_cache_key: dsm-p6-v1
+  prompt_cache_retention: 24h
+  max_concurrent: 16
+  requests_per_minute: 90
+
+gemini:
+  # Explicit context cache: rubric + 5 examples uploaded once as cachedContents,
+  # every request then sends only the target image + a reference to the cache.
+  explicit_cache: true
+  cache_display_name: dsm-p6-v1
+  cache_ttl_seconds: 7200
+  cache_refresh_margin_seconds: 900
+  max_concurrent: 25
+  requests_per_minute: 60
+
+retry:
+  max_attempts: 5
+  base_delay_seconds: 2
+  max_delay_seconds: 60
+  cooldown_after_429_seconds: 15
+  request_timeout_seconds: 180
+
+budget:
+  hard_ceiling_usd: 10.0
+  # Used only to decide whether one more request fits under the ceiling
+  # before its real usage is known.
+  estimated_cost_per_request_usd: 0.03
+
+prices_per_million:
+  gpt52:  {input: 1.75, cached: 0.175, output: 14.0}
+  gpt41:  {input: 2.00, cached: 0.50,  output: 8.0}
+  gem3fp: {input: 0.50, cached: 0.05,  output: 3.0}

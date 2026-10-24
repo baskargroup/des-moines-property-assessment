@@ -1,0 +1,30 @@
+run_id: citywide_terra
+manifest: manifests/full.csv
+model: gpt-5.6-terra
+prompt_module_dir: ../nogwh_evaluation
+
+# Manual cumulative stages. The runner never advances stages by itself.
+stages: [1000, 10000, 66701]
+
+workers: 12
+max_pending_requests: 24
+max_attempts: 5
+request_timeout_seconds: 180
+base_retry_delay_seconds: 2
+max_retry_delay_seconds: 60
+
+prompt_cache_key: citywide-p6-terra-v1
+prompt_cache_ttl: 30m
+reasoning_effort: low
+max_output_tokens: 8000
+
+budget:
+  hard_ceiling_usd: 3000.0
+  warning_thresholds_usd: [250.0, 500.0, 750.0]
+  request_reserve_usd: 0.03
+
+prices_per_million:
+  input: 2.0
+  cached: 0.2
+  cache_write: 2.5
+  output: 12.0

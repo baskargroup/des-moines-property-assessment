@@ -1,0 +1,88 @@
+extractedimages/
+extractedimages.zip
+
+# City of Des Moines data: property photos, expert labels, parcel identifiers and
+# per-image model outputs are covered by a municipal data-use agreement. Never publish.
+data/*
+!data/prompts/
+# Prompt texts and few-shot example descriptions are not distributed.
+data/prompts/*
+!data/prompts/README.md
+archive/
+docs/prompts_preview/
+notebooks/01_data_quality_visual.ipynb
+notebooks/02_score_zeroshot_visual.ipynb
+notebooks/03_score_fewshot_visual.ipynb
+nogwh_evaluation/*.csv
+nogwh_evaluation/*.jsonl
+nogwh_evaluation/*summary*.json
+nogwh_evaluation/anchors/
+nogwh_evaluation/reviewer/*.csv
+uncertainty_analysis/*.csv
+citywide/manifests/
+citywide/runs/
+citywide/gis/
+citywide/figures/
+
+# Virtual Environment
+venv/
+.venv/
+env/
+.env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# Environment variables and API keys
+config.env
+.env
+*.env
+.env.local
+.env.*.local
+
+# API Keys and Secrets (extra protection)
+*_key.txt
+*_secret.txt
+secrets/
+.secrets/
+
+# Logs
+*.log
+!logs/*.log
+
+# W&B logs
+scripts/wandb/
+wandb/
+
+# Build artifacts
+*.tar.gz
+
+# Temporary folders
+tmp/
+tmp_to_delete/
+temp/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Manuscript - do not publish
+Hossein_property_condition_assessment.pdf
